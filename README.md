@@ -147,13 +147,13 @@ The `KNOWN_EXTENSIONS` whitelist is what stops `report,final` from becoming `rep
 Search for **File Extension Fixer** in the Extensions panel (`Ctrl+Shift+X`) and press *Install*. Or from the terminal:
 
 ```bash
-code --install-extension jorgetoledomoreno.file-extension-fixer
+code --install-extension jorgetoledomoreno.auto-extension-files
 ```
 
 From a `.vsix` file:
 
 ```bash
-code --install-extension file-extension-fixer-1.0.0.vsix
+code --install-extension auto-extension-files-1.0.0.vsix
 ```
 
 Reload afterwards with `Ctrl+Shift+P` → **Developer: Reload Window**.
@@ -419,13 +419,13 @@ La lista blanca `KNOWN_EXTENSIONS` es lo que evita que `informe,final` se convie
 Busca **File Extension Fixer** en el panel de extensiones (`Ctrl+Mayús+X`) y pulsa *Instalar*. O desde la terminal:
 
 ```bash
-code --install-extension jorgetoledomoreno.file-extension-fixer
+code --install-extension jorgetoledomoreno.auto-extension-files
 ```
 
 Desde un archivo `.vsix`:
 
 ```bash
-code --install-extension file-extension-fixer-1.0.0.vsix
+code --install-extension auto-extension-files-1.0.0.vsix
 ```
 
 Recarga después con `Ctrl+Mayús+P` → **Developer: Reload Window**.
