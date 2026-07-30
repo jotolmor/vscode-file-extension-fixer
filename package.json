@@ -15,8 +15,8 @@
   },
   "homepage": "https://github.com/jotolmor/vscode-file-extension-fixer#readme",
   "galleryBanner": {
-    "color": "#1B3FA8",
-    "theme": "dark"
+    "color": "#F3F2F2",
+    "theme": "light"
   },
   "engines": {
     "vscode": "^1.85.0"
@@ -77,7 +77,6 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "icon": "node tools/make-icon.js",
     "test": "npm run compile && node test/file-names.test.js && node test/project-language.test.js && node test/folder-language.test.js && node test/open-path.test.js && node test/create-path.test.js"
   },
   "devDependencies": {

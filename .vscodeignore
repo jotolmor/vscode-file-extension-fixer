@@ -2,7 +2,7 @@
 .vscode-test/**
 sandbox/**
 test/**
-tools/**
+images/*.zip
 src/**
 out/**/*.map
 node_modules/**
