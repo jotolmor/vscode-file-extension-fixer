@@ -6,6 +6,14 @@
   "publisher": "jorgetoledomoreno",
   "license": "MIT",
   "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jotolmor/vscode-file-extension-fixer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jotolmor/vscode-file-extension-fixer/issues"
+  },
+  "homepage": "https://github.com/jotolmor/vscode-file-extension-fixer#readme",
   "galleryBanner": {
     "color": "#1B3FA8",
     "theme": "dark"
