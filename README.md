@@ -255,6 +255,40 @@ The value must start with a dot and contain only alphanumeric characters and dot
 
 `KNOWN_EXTENSIONS`, used by the separator repair, is built from the values of `LANGUAGE_EXTENSION_MAP`, so adding a language also enables its extension there.
 
+## Publishing
+
+**Open VSX** — the open registry used by VSCodium, Cursor, Gitpod and Eclipse Theia. Needs neither Azure nor a credit card.
+
+1. Sign in at <https://open-vsx.org> with GitHub and accept the Eclipse Foundation Publisher Agreement.
+2. Create an access token from your profile.
+3. Create the namespace, once:
+
+   ```bash
+   npx ovsx create-namespace jotolmor -p YOUR-TOKEN
+   ```
+
+4. Publish:
+
+   ```bash
+   npx ovsx publish -p YOUR-TOKEN
+   ```
+
+**Visual Studio Marketplace** — reaches official VS Code, which is where most users are. Requires an Azure DevOps organization, and creating one now asks to link an Azure subscription.
+
+1. Register the publisher at <https://marketplace.visualstudio.com/manage>.
+2. Create a Personal Access Token at `https://dev.azure.com/YOUR-ORG/_usersSettings/tokens`, with **Organization: All accessible organizations** and the scope **Marketplace → Manage** (press *Show all scopes* to see it).
+3. Publish:
+
+   ```bash
+   npx @vscode/vsce login jotolmor
+   ```
+
+   ```bash
+   npx @vscode/vsce publish
+   ```
+
+Both registries take the same package; publishing to one does not affect the other.
+
 ## Troubleshooting
 
 **A new file gets no extension.** Check the output channel:
@@ -522,6 +556,40 @@ El icono vive en `images/`: `icon.svg` es la fuente vectorial e `icon.png` el re
 El valor debe empezar por punto y contener solo caracteres alfanuméricos y puntos. Se valida en tiempo de ejecución con `isSafeExtension()`, que rechaza cualquier valor con `..`, `/` o `\`.
 
 `KNOWN_EXTENSIONS`, que usa la reparación del separador, se construye a partir de los valores de `LANGUAGE_EXTENSION_MAP`, así que añadir un lenguaje también habilita su extensión allí.
+
+## Publicación
+
+**Open VSX** — el registro abierto que usan VSCodium, Cursor, Gitpod y Eclipse Theia. No necesita Azure ni tarjeta.
+
+1. Entra en <https://open-vsx.org> con tu cuenta de GitHub y firma el *Publisher Agreement* de la Eclipse Foundation.
+2. Genera un token en tu perfil, en *Access Tokens*.
+3. Crea el espacio de nombres, una sola vez:
+
+   ```bash
+   npx ovsx create-namespace jotolmor -p TU-TOKEN
+   ```
+
+4. Publica:
+
+   ```bash
+   npx ovsx publish -p TU-TOKEN
+   ```
+
+**Visual Studio Marketplace** — llega a VS Code oficial, donde está la mayoría de usuarios. Exige una organización de Azure DevOps, y crear una ahora pide vincular una suscripción de Azure.
+
+1. Registra el publisher en <https://marketplace.visualstudio.com/manage>.
+2. Crea un Personal Access Token en `https://dev.azure.com/TU-ORGANIZACION/_usersSettings/tokens`, con **Organization: All accessible organizations** y el ámbito **Marketplace → Manage** (pulsa *Show all scopes* para que aparezca).
+3. Publica:
+
+   ```bash
+   npx @vscode/vsce login jotolmor
+   ```
+
+   ```bash
+   npx @vscode/vsce publish
+   ```
+
+Los dos registros aceptan el mismo paquete; publicar en uno no afecta al otro.
 
 ## Solución de problemas
 
