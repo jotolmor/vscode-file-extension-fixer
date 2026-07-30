@@ -78,12 +78,14 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "test": "npm run compile && node test/file-names.test.js && node test/project-language.test.js && node test/folder-language.test.js && node test/open-path.test.js && node test/create-path.test.js"
+    "test": "npm run compile && node test/file-names.test.js && node test/project-language.test.js && node test/folder-language.test.js && node test/open-path.test.js && node test/create-path.test.js",
+    "publish:ovsx": "ovsx publish"
   },
   "devDependencies": {
     "@types/node": "20.x",
     "@types/vscode": "^1.85.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "ovsx": "^0.10.1"
   },
   "author": {
     "name": "jotolmor",
