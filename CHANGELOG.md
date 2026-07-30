@@ -9,7 +9,7 @@ Primera versión de esta reescritura, publicada como actualización de `auto-ext
 ### Añadido
 
 - Icono nuevo: un diagrama de Venn con `.ts`, `.py` y `.rs` fundidos en multiply, sobre fondo claro con extensiones sueltas de fondo. La fuente vectorial queda en `images/icon.svg`. Se retira `tools/make-icon.js` y el script `npm run icon`: el icono ya no se genera por código, y dejar el generador habría sobrescrito el icono bueno a la primera que alguien ejecutase ese comando.
-- Interfaz en inglés. Todos los mensajes pasan por `vscode.l10n.t()`, así que añadir un idioma consiste en dejar un `l10n/bundle.l10n.<idioma>.json` y declarar `l10n` en el `package.json`, sin tocar el código. Los títulos de los comandos y la descripción del ajuste salen de `package.nls.json`.
+- Interfaz en inglés que conmuta sola al idioma de VS Code. Todos los mensajes pasan por `vscode.l10n.t()`, con el español en `l10n/bundle.l10n.es.json`; los títulos de los comandos y la descripción del ajuste, en `package.nls.json` y `package.nls.es.json`. Añadir otro idioma es dejar un `bundle.l10n.<idioma>.json` más, sin tocar el código.
 - Enlaces al repositorio (`repository`, `bugs`, `homepage`) para la ficha del Marketplace.
 - README bilingüe, inglés y español.
 

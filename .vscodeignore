@@ -3,6 +3,7 @@
 sandbox/**
 test/**
 images/*.zip
+images/icon-*.png
 src/**
 out/**/*.map
 node_modules/**
