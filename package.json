@@ -2,7 +2,7 @@
   "name": "auto-extension-files",
   "displayName": "%displayName%",
   "description": "%description%",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "publisher": "jorgetoledomoreno",
   "license": "MIT",
   "icon": "images/icon.png",
@@ -49,12 +49,12 @@
   "contributes": {
     "commands": [
       {
-        "command": "extension.fixFileExtension",
+        "command": "fileExtensionFixer.fixFileExtension",
         "title": "%command.fixFileExtension%",
         "category": "File Extension Fixer"
       },
       {
-        "command": "extension.setFolderLanguage",
+        "command": "fileExtensionFixer.setFolderLanguage",
         "title": "%command.setFolderLanguage%",
         "category": "File Extension Fixer"
       }

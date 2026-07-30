@@ -2,6 +2,12 @@
 
 Este proyecto sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y [SemVer](https://semver.org/lang/es/).
 
+## [1.0.2] - 2026-07-30
+
+### Corregido
+
+- Los comandos pasan de `extension.fixFileExtension` y `extension.setFolderLanguage` a `fileExtensionFixer.*`. El prefijo `extension.` es el del tutorial oficial y lo usa mucha gente: si otra extensión instalada registra el mismo identificador, la activación falla entera con `command 'X' already exists` y la extensión no arranca.
+
 ## [1.0.0] - 2026-07-29
 
 Primera versión de esta reescritura, publicada como actualización de `auto-extension-files` 0.0.4. El identificador `jorgetoledomoreno.auto-extension-files` se conserva para no partir la ficha del Marketplace en dos; el nombre visible pasa a ser File Extension Fixer.

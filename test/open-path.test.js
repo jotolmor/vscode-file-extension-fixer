@@ -126,7 +126,7 @@ async function scenario(title, doc, { manual = false, choice = 'Renombrar', exis
     await sleep(800);
   } else if (manual) {
     vscode.window.activeTextEditor = { document: doc };
-    await commands.get('extension.fixFileExtension')();
+    await commands.get('fileExtensionFixer.fixFileExtension')();
   } else {
     openHandler(doc);
     await sleep(800);

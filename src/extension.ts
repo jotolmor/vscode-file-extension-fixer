@@ -334,7 +334,7 @@ function report(
  * Core logic: decide whether `document` should be renamed, ask the user and
  * perform the rename through the URI-based filesystem API.
  *
- * @param manual true when triggered by the `extension.fixFileExtension` command.
+ * @param manual true when triggered by the `fileExtensionFixer.fixFileExtension` command.
  */
 async function detectAndFix(document: vscode.TextDocument, manual: boolean): Promise<void> {
     const uriKey = document.uri.toString();
@@ -886,7 +886,7 @@ export function activate(context: vscode.ExtensionContext): void {
 
     // Lets the user set or correct the choice without editing settings.json.
     context.subscriptions.push(
-        vscode.commands.registerCommand('extension.setFolderLanguage', async () => {
+        vscode.commands.registerCommand('fileExtensionFixer.setFolderLanguage', async () => {
             const editor = vscode.window.activeTextEditor;
             const target = editor
                 ? vscode.Uri.joinPath(editor.document.uri, '..')
@@ -908,7 +908,7 @@ export function activate(context: vscode.ExtensionContext): void {
 
     // Manual fallback: works on the active editor at any time.
     context.subscriptions.push(
-        vscode.commands.registerCommand('extension.fixFileExtension', async () => {
+        vscode.commands.registerCommand('fileExtensionFixer.fixFileExtension', async () => {
             const editor = vscode.window.activeTextEditor;
             if (!editor) {
                 void vscode.window.showWarningMessage(vscode.l10n.t('No active editor.'));
