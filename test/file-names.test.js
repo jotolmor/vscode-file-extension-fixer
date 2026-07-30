@@ -8,7 +8,7 @@ const PROJECT = path.join(__dirname, '..');
 const originalLoad = Module._load;
 Module._load = function (request, ...rest) {
   if (request === 'vscode') {
-    return { FileType: { Unknown: 0, File: 1, Directory: 2, SymbolicLink: 64 } };
+    return { FileType: { Unknown: 0, File: 1, Directory: 2, SymbolicLink: 64 }, l10n: { t: (m) => m } };
   }
   return originalLoad.call(this, request, ...rest);
 };

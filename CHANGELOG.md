@@ -4,7 +4,17 @@ Este proyecto sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) 
 
 ## [1.0.0] - 2026-07-29
 
-Primera versión pública. Sin cambios funcionales respecto a la 0.5.0: los tres caminos de detección, la elección de lenguaje por carpeta y el comando manual se consideran estables.
+Primera versión pública.
+
+### Añadido
+
+- Localización con la API `vscode.l10n`: los mensajes están en inglés por defecto y se muestran en español automáticamente para quien tenga VS Code en ese idioma. Las traducciones viven en `l10n/bundle.l10n.es.json`; los títulos de los comandos y la descripción del ajuste, en `package.nls.json` y `package.nls.es.json`.
+- Enlaces al repositorio (`repository`, `bugs`, `homepage`) para la ficha del Marketplace.
+- README bilingüe, inglés y español.
+
+### Cambiado
+
+- El registro del canal de salida se mantiene en inglés y sin traducir a propósito: es una traza de desarrollo, y traducirla haría imposible relacionar los mensajes de un informe de error con el código fuente.
 
 ## [0.5.0] - 2026-07-29
 

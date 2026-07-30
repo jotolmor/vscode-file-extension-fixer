@@ -1,11 +1,12 @@
 {
   "name": "file-extension-fixer",
-  "displayName": "File Extension Fixer",
-  "description": "Gives extensionless files the right extension, from the project language, the file content, or by fixing a comma typed instead of a dot.",
+  "displayName": "%displayName%",
+  "description": "%description%",
   "version": "1.0.0",
   "publisher": "jorgetoledomoreno",
   "license": "MIT",
   "icon": "images/icon.png",
+  "l10n": "./l10n",
   "repository": {
     "type": "git",
     "url": "https://github.com/jotolmor/vscode-file-extension-fixer.git"
@@ -38,23 +39,23 @@
   "capabilities": {
     "untrustedWorkspaces": {
       "supported": false,
-      "description": "La extensión renombra archivos del workspace, por lo que requiere un workspace de confianza."
+      "description": "The extension renames files in the workspace, so it requires a trusted workspace."
     },
     "virtualWorkspaces": {
       "supported": false,
-      "description": "Requiere un sistema de archivos real para renombrar; no funciona en workspaces virtuales."
+      "description": "Renaming needs a real filesystem, so virtual workspaces are not supported."
     }
   },
   "contributes": {
     "commands": [
       {
         "command": "extension.fixFileExtension",
-        "title": "Fix File Extension",
+        "title": "%command.fixFileExtension%",
         "category": "File Extension Fixer"
       },
       {
         "command": "extension.setFolderLanguage",
-        "title": "Set Folder Language",
+        "title": "%command.setFolderLanguage%",
         "category": "File Extension Fixer"
       }
     ],
@@ -68,7 +69,7 @@
           "additionalProperties": {
             "type": "string"
           },
-          "markdownDescription": "Lenguaje elegido por carpeta. La clave es la ruta relativa a la raíz del workspace, con `/` como separador; `.` es la raíz. El valor es la extensión con punto, o `auto` para volver a la detección automática.\n\n```json\n{\n  \".\": \".c\",\n  \"02-Variables/ejercicio_python\": \".py\"\n}\n```"
+          "markdownDescription": "%config.folderLanguages%"
         }
       }
     }

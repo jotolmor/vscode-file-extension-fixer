@@ -1,0 +1,7 @@
+{
+  "displayName": "File Extension Fixer",
+  "description": "Gives extensionless files the right extension, from the project language, the file content, or by fixing a comma typed instead of a dot.",
+  "command.fixFileExtension": "Fix File Extension",
+  "command.setFolderLanguage": "Set Folder Language",
+  "config.folderLanguages": "Language chosen per folder. The key is the path relative to the workspace root, using forward slashes; a single dot is the root itself. The value is the extension with its dot, or \"auto\" to fall back to automatic detection."
+}

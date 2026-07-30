@@ -300,7 +300,7 @@ async function applyRename(
         processedUris.delete(targetKey);
         const detail = error instanceof Error ? error.message : String(error);
         log(`Rename failed for '${currentName}' -> '${targetName}': ${detail}`);
-        void vscode.window.showErrorMessage(`No se pudo renombrar '${currentName}': ${detail}`);
+        void vscode.window.showErrorMessage(vscode.l10n.t('Could not rename {0}: {1}', currentName, detail));
         return false;
     }
 }
@@ -310,15 +310,23 @@ async function applyRename(
  * explicitly, so silence would look like a broken command; in automatic mode
  * only the output channel is touched to keep the experience non-intrusive.
  */
-function report(message: string, manual: boolean, severity: 'info' | 'warning' = 'info'): void {
-    log(message);
+function report(
+    logMessage: string,
+    userMessage: string,
+    manual: boolean,
+    severity: 'info' | 'warning' = 'info'
+): void {
+    // The log stays in English and untranslated: it is a developer trace read
+    // through the output channel, and translating it would make the messages
+    // in bug reports impossible to match against the source.
+    log(logMessage);
     if (!manual) {
         return;
     }
     if (severity === 'warning') {
-        void vscode.window.showWarningMessage(message);
+        void vscode.window.showWarningMessage(userMessage);
     } else {
-        void vscode.window.showInformationMessage(message);
+        void vscode.window.showInformationMessage(userMessage);
     }
 }
 
@@ -333,19 +341,32 @@ async function detectAndFix(document: vscode.TextDocument, manual: boolean): Pro
 
     // (a) Untitled documents have no path on disk; there is nothing to rename.
     if (document.isUntitled) {
-        report('Skipped: the document is untitled (not saved to disk yet).', manual);
+        report(
+            'Skipped: the document is untitled (not saved to disk yet).',
+            vscode.l10n.t('The file has not been saved to disk yet.'),
+            manual
+        );
         return;
     }
 
     if (!RENAMEABLE_SCHEMES.has(document.uri.scheme)) {
-        report(`Skipped: unsupported URI scheme '${document.uri.scheme}'.`, manual);
+        report(
+            `Skipped: unsupported URI scheme '${document.uri.scheme}'.`,
+            vscode.l10n.t('This kind of document cannot be renamed.'),
+            manual
+        );
         return;
     }
 
     // Restrict every filesystem operation to the user's active workspace.
     const workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
     if (!workspaceFolder) {
-        report('Skipped: the file is outside the active workspace.', manual, 'warning');
+        report(
+            'Skipped: the file is outside the active workspace.',
+            vscode.l10n.t('The file is outside the folder open in VS Code.'),
+            manual,
+            'warning'
+        );
         return;
     }
 
@@ -368,7 +389,7 @@ async function detectAndFix(document: vscode.TextDocument, manual: boolean): Pro
     const separatorFix = findSeparatorTypoFix(currentName);
     if (separatorFix !== undefined) {
         targetName = separatorFix;
-        reasonLabel = 'Separador de extensión incorrecto.';
+        reasonLabel = vscode.l10n.t('Wrong extension separator.');
         reasonLog = 'malformed extension separator';
     } else {
         // (b) A file that already has an extension is left alone. Dotfiles such
@@ -376,12 +397,20 @@ async function detectAndFix(document: vscode.TextDocument, manual: boolean): Pro
         const currentExtension = path.extname(document.fileName);
         if (currentExtension !== '') {
             processedUris.add(uriKey);
-            report(`Skipped: '${currentName}' already has the extension '${currentExtension}'.`, manual);
+            report(
+                `Skipped: '${currentName}' already has the extension '${currentExtension}'.`,
+                vscode.l10n.t("{0} already has the extension {1}.", currentName, currentExtension),
+                manual
+            );
             return;
         }
         if (currentName.startsWith('.')) {
             processedUris.add(uriKey);
-            report(`Skipped: '${currentName}' is a dotfile and is left untouched.`, manual);
+            report(
+                `Skipped: '${currentName}' is a dotfile and is left untouched.`,
+                vscode.l10n.t('{0} is a dotfile and is left untouched.', currentName),
+                manual
+            );
             return;
         }
 
@@ -393,7 +422,7 @@ async function detectAndFix(document: vscode.TextDocument, manual: boolean): Pro
             log(`Skipped: '${currentName}' resolved to the ignored language '${languageId}'.`);
             if (manual) {
                 void vscode.window.showInformationMessage(
-                    `No se puede deducir la extensión de '${currentName}': VS Code lo detecta como '${languageId}'.`
+                    vscode.l10n.t('Cannot infer the extension for {0}: VS Code detects it as {1}.', currentName, languageId)
                 );
             }
             return;
@@ -409,37 +438,56 @@ async function detectAndFix(document: vscode.TextDocument, manual: boolean): Pro
                 log(`Skipped: language '${languageId}' is not present in LANGUAGE_EXTENSION_MAP.`);
                 if (manual) {
                     void vscode.window.showInformationMessage(
-                        `El lenguaje '${languageId}' no está en el mapa de extensiones de la extensión.`
+                        vscode.l10n.t('The language {0} is not in the extension map.', languageId)
                     );
                 }
                 return;
             }
             if (!isSafeExtension(extension)) {
-                report(`Aborted: unsafe extension value '${extension}' for language '${languageId}'.`, manual, 'warning');
+                report(
+                    `Aborted: unsafe extension value '${extension}' for language '${languageId}'.`,
+                    vscode.l10n.t('The extension for {0} is not valid.', languageId),
+                    manual,
+                    'warning'
+                );
                 return;
             }
             targetName = `${currentName}${extension}`;
         }
 
-        reasonLabel = `Lenguaje detectado: ${languageId}.`;
+        reasonLabel = vscode.l10n.t('Detected language: {0}.', languageId);
         reasonLog = `languageId: ${languageId}`;
     }
 
     if (!isSafeFileName(targetName)) {
-        report(`Aborted: unsafe target file name '${targetName}'.`, manual, 'warning');
+        report(
+            `Aborted: unsafe target file name '${targetName}'.`,
+            vscode.l10n.t('{0} is not a valid file name.', targetName),
+            manual,
+            'warning'
+        );
         return;
     }
 
     if (targetName === currentName) {
         processedUris.add(uriKey);
-        report(`Skipped: '${currentName}' already has the correct name.`, manual);
+        report(
+            `Skipped: '${currentName}' already has the correct name.`,
+            vscode.l10n.t('{0} already has the correct name.', currentName),
+            manual
+        );
         return;
     }
 
     // Renaming a file with unsaved changes can desynchronise the editor buffer
     // from disk, so the user is asked to save first instead.
     if (document.isDirty) {
-        report(`Skipped: '${currentName}' has unsaved changes. Save it and run the command again.`, manual, 'warning');
+        report(
+            `Skipped: '${currentName}' has unsaved changes.`,
+            vscode.l10n.t('{0} has unsaved changes. Save it and run the command again.', currentName),
+            manual,
+            'warning'
+        );
         return;
     }
 
@@ -453,7 +501,7 @@ async function detectAndFix(document: vscode.TextDocument, manual: boolean): Pro
         processedUris.add(uriKey);
         log(`Aborted: target '${targetName}' already exists; nothing was overwritten.`);
         void vscode.window.showWarningMessage(
-            `No se renombró '${currentName}': ya existe un archivo llamado '${targetName}'.`
+            vscode.l10n.t('{0} was not renamed: a file called {1} already exists.', currentName, targetName)
         );
         return;
     }
@@ -464,10 +512,10 @@ async function detectAndFix(document: vscode.TextDocument, manual: boolean): Pro
 
     log(`Proposing rename: '${currentName}' -> '${targetName}' (${reasonLog}).`);
 
-    const RENAME = 'Renombrar';
-    const CANCEL = 'Cancelar';
+    const RENAME = vscode.l10n.t('Rename');
+    const CANCEL = vscode.l10n.t('Cancel');
     const choice = await vscode.window.showInformationMessage(
-        `${reasonLabel} ¿Renombrar '${currentName}' a '${targetName}'?`,
+        `${reasonLabel} ${vscode.l10n.t('Rename {0} to {1}?', currentName, targetName)}`,
         RENAME,
         CANCEL
     );
@@ -478,7 +526,7 @@ async function detectAndFix(document: vscode.TextDocument, manual: boolean): Pro
     }
 
     if (await applyRename(document.uri, targetUri, currentName, targetName)) {
-        void vscode.window.showInformationMessage(`Archivo renombrado a '${targetName}'.`);
+        void vscode.window.showInformationMessage(vscode.l10n.t('File renamed to {0}.', targetName));
     }
 }
 
@@ -561,9 +609,9 @@ async function handleCreatedFile(uri: vscode.Uri): Promise<void> {
     }
 
     // No confirmation is asked before renaming, so undo is the safety net.
-    const UNDO = 'Deshacer';
+    const UNDO = vscode.l10n.t('Undo');
     const choice = await vscode.window.showInformationMessage(
-        `Renombrado a '${targetName}' según el lenguaje del proyecto.`,
+        vscode.l10n.t("Renamed to {0}, following the project's language.", targetName),
         UNDO
     );
     if (choice !== UNDO) {
@@ -576,7 +624,7 @@ async function handleCreatedFile(uri: vscode.Uri): Promise<void> {
     } catch (error) {
         const detail = error instanceof Error ? error.message : String(error);
         log(`Undo failed for '${targetName}': ${detail}`);
-        void vscode.window.showErrorMessage(`No se pudo deshacer el renombrado: ${detail}`);
+        void vscode.window.showErrorMessage(vscode.l10n.t('Could not undo the rename: {0}', detail));
     }
 }
 
@@ -629,7 +677,7 @@ async function askFolderLanguage(
         const match = LANGUAGE_CHOICES.find((choice) => choice.extension === detected);
         items.push({
             label: match ? match.label : detected,
-            description: `${detected} · detectado en el proyecto`,
+            description: `${detected} · ${vscode.l10n.t('detected in the project')}`,
             value: detected
         });
     }
@@ -639,15 +687,15 @@ async function askFolderLanguage(
         }
     }
     items.push({
-        label: 'Detectar automáticamente',
-        description: 'no volver a preguntar en esta carpeta',
+        label: vscode.l10n.t('Detect automatically'),
+        description: vscode.l10n.t('stop asking in this folder'),
         value: AUTOMATIC
     });
 
     const label = folderKey(workspaceFolder.uri, folder);
     const picked = await vscode.window.showQuickPick(items, {
         title: `File Extension Fixer · ${label}`,
-        placeHolder: `¿Qué lenguaje vas a usar en '${label}'?`,
+        placeHolder: vscode.l10n.t('Which language are you going to use in {0}?', label),
         matchOnDescription: true
     });
 
@@ -662,7 +710,7 @@ async function askFolderLanguage(
     } catch (error) {
         const detail = error instanceof Error ? error.message : String(error);
         log(`Could not store the language for '${label}': ${detail}`);
-        void vscode.window.showErrorMessage(`No se pudo guardar el lenguaje de '${label}': ${detail}`);
+        void vscode.window.showErrorMessage(vscode.l10n.t('Could not save the language for {0}: {1}', label, detail));
     }
 }
 
@@ -844,12 +892,12 @@ export function activate(context: vscode.ExtensionContext): void {
                 ? vscode.Uri.joinPath(editor.document.uri, '..')
                 : vscode.workspace.workspaceFolders?.[0]?.uri;
             if (!target) {
-                void vscode.window.showWarningMessage('No hay ninguna carpeta abierta.');
+                void vscode.window.showWarningMessage(vscode.l10n.t('No folder is open.'));
                 return;
             }
             const workspaceFolder = vscode.workspace.getWorkspaceFolder(target);
             if (!workspaceFolder) {
-                void vscode.window.showWarningMessage('La carpeta está fuera del workspace.');
+                void vscode.window.showWarningMessage(vscode.l10n.t('The folder is outside the workspace.'));
                 return;
             }
             // The command is explicit, so a previous answer must not block it.
@@ -863,7 +911,7 @@ export function activate(context: vscode.ExtensionContext): void {
         vscode.commands.registerCommand('extension.fixFileExtension', async () => {
             const editor = vscode.window.activeTextEditor;
             if (!editor) {
-                void vscode.window.showWarningMessage('No hay ningún editor activo.');
+                void vscode.window.showWarningMessage(vscode.l10n.t('No active editor.'));
                 log('Manual command invoked without an active editor.');
                 return;
             }

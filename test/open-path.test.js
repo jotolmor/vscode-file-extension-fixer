@@ -27,6 +27,7 @@ let openHandler = null;
 const commands = new Map();
 
 const vscode = {
+  l10n: { t: (message, ...args) => String(message).replace(/\{(\d+)\}/g, (_, i) => args[i]) },
   Uri: {
     joinPath(base, ...segments) {
       return new FakeUri(base.scheme, path.posix.join(base.path, ...segments));

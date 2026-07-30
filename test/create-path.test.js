@@ -36,6 +36,7 @@ let quickPickAnswer = undefined;
 const quickPicks = [];
 
 const vscode = {
+  l10n: { t: (message, ...args) => String(message).replace(/\{(\d+)\}/g, (_, i) => args[i]) },
   FileType,
   Uri: {
     joinPath(base, ...segments) { return new FakeUri(base.scheme, path.posix.join(base.path, ...segments)); }

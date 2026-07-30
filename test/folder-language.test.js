@@ -24,6 +24,7 @@ class FakeUri {
 const uriOf = (w) => new FakeUri('file', '/' + w.replace(/\\/g, '/'));
 
 const vscode = {
+  l10n: { t: (message, ...args) => String(message).replace(/\{(\d+)\}/g, (_, i) => args[i]) },
   FileType,
   ConfigurationTarget: { Global: 1, Workspace: 2, WorkspaceFolder: 3 },
   Uri: { joinPath: (b, ...s) => new FakeUri(b.scheme, path.posix.join(b.path, ...s)) },
