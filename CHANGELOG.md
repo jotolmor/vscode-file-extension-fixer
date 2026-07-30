@@ -8,6 +8,7 @@ Primera versión de esta reescritura, publicada como actualización de `auto-ext
 
 ### Añadido
 
+- Icono nuevo: documento inclinado sobre degradado violeta y un cometa ámbar que aterriza al final de la primera línea, justo donde un archivo gana su extensión. Sigue generándose con `npm run icon`; `tools/make-icon.js` acepta ahora una resolución opcional, para revisar cómo se lee a 32 o 48 px sin deformar el dibujo.
 - Interfaz en inglés. Todos los mensajes pasan por `vscode.l10n.t()`, así que añadir un idioma consiste en dejar un `l10n/bundle.l10n.<idioma>.json` y declarar `l10n` en el `package.json`, sin tocar el código. Los títulos de los comandos y la descripción del ajuste salen de `package.nls.json`.
 - Enlaces al repositorio (`repository`, `bugs`, `homepage`) para la ficha del Marketplace.
 - README bilingüe, inglés y español.
