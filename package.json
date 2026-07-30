@@ -2,7 +2,7 @@
   "name": "auto-extension-files",
   "displayName": "%displayName%",
   "description": "%description%",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "jorgetoledomoreno",
   "license": "MIT",
   "icon": "images/icon.png",
