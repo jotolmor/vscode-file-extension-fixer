@@ -6,7 +6,6 @@
   "publisher": "jorgetoledomoreno",
   "license": "MIT",
   "icon": "images/icon.png",
-  "l10n": "./l10n",
   "repository": {
     "type": "git",
     "url": "https://github.com/jotolmor/vscode-file-extension-fixer.git"

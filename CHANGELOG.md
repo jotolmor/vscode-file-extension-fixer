@@ -8,7 +8,7 @@ Primera versión pública.
 
 ### Añadido
 
-- Localización con la API `vscode.l10n`: los mensajes están en inglés por defecto y se muestran en español automáticamente para quien tenga VS Code en ese idioma. Las traducciones viven en `l10n/bundle.l10n.es.json`; los títulos de los comandos y la descripción del ajuste, en `package.nls.json` y `package.nls.es.json`.
+- Interfaz en inglés. Todos los mensajes pasan por `vscode.l10n.t()`, así que añadir un idioma consiste en dejar un `l10n/bundle.l10n.<idioma>.json` y declarar `l10n` en el `package.json`, sin tocar el código. Los títulos de los comandos y la descripción del ajuste salen de `package.nls.json`.
 - Enlaces al repositorio (`repository`, `bugs`, `homepage`) para la ficha del Marketplace.
 - README bilingüe, inglés y español.
 

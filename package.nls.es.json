@@ -1,7 +1,0 @@
-{
-  "displayName": "File Extension Fixer",
-  "description": "Pone la extensión correcta a los archivos sin extensión: el lenguaje del proyecto, el contenido del archivo, o reparando una coma escrita en lugar del punto.",
-  "command.fixFileExtension": "Corregir extensión de archivo",
-  "command.setFolderLanguage": "Definir lenguaje de la carpeta",
-  "config.folderLanguages": "Lenguaje elegido por carpeta. La clave es la ruta relativa a la raíz del workspace, con barras normales; un punto solo es la propia raíz. El valor es la extensión con punto, o \"auto\" para volver a la detección automática."
-}
