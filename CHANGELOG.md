@@ -2,6 +2,13 @@
 
 Este proyecto sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y [SemVer](https://semver.org/lang/es/).
 
+## [1.0.3] - 2026-07-30
+
+### Cambiado
+
+- El identificador de la extensión pasa de `auto-extension-files` a `file-extension-autofixer`. El Marketplace exige que el `name` sea único en todo el registro, y el anterior lo ocupaba la 0.0.4 publicada bajo el publisher viejo. El nombre visible sigue siendo File Extension Fixer.
+- Publicada bajo el publisher `jotolmor` en lugar del que llevaba el nombre completo.
+
 ## [1.0.2] - 2026-07-30
 
 ### Corregido

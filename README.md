@@ -147,7 +147,7 @@ The `KNOWN_EXTENSIONS` whitelist is what stops `report,final` from becoming `rep
 Search for **File Extension Fixer** in the Extensions panel (`Ctrl+Shift+X`) and press *Install*. Or from the terminal:
 
 ```bash
-code --install-extension jotolmor.auto-extension-files
+code --install-extension jotolmor.file-extension-autofixer
 ```
 
 From a `.vsix` file:
@@ -449,7 +449,7 @@ La lista blanca `KNOWN_EXTENSIONS` es lo que evita que `informe,final` se convie
 Busca **File Extension Fixer** en el panel de extensiones (`Ctrl+Mayús+X`) y pulsa *Instalar*. O desde la terminal:
 
 ```bash
-code --install-extension jotolmor.auto-extension-files
+code --install-extension jotolmor.file-extension-autofixer
 ```
 
 Desde un archivo `.vsix`:
