@@ -1,0 +1,80 @@
+{
+  "name": "file-extension-fixer",
+  "displayName": "File Extension Fixer",
+  "description": "Gives extensionless files the right extension, from the project language, the file content, or by fixing a comma typed instead of a dot.",
+  "version": "1.0.0",
+  "publisher": "jorgetoledomoreno",
+  "license": "MIT",
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#1B3FA8",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "extension",
+    "rename",
+    "filename",
+    "language",
+    "productivity"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "La extensión renombra archivos del workspace, por lo que requiere un workspace de confianza."
+    },
+    "virtualWorkspaces": {
+      "supported": false,
+      "description": "Requiere un sistema de archivos real para renombrar; no funciona en workspaces virtuales."
+    }
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.fixFileExtension",
+        "title": "Fix File Extension",
+        "category": "File Extension Fixer"
+      },
+      {
+        "command": "extension.setFolderLanguage",
+        "title": "Set Folder Language",
+        "category": "File Extension Fixer"
+      }
+    ],
+    "configuration": {
+      "title": "File Extension Fixer",
+      "properties": {
+        "fileExtensionFixer.folderLanguages": {
+          "type": "object",
+          "default": {},
+          "scope": "resource",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "markdownDescription": "Lenguaje elegido por carpeta. La clave es la ruta relativa a la raíz del workspace, con `/` como separador; `.` es la raíz. El valor es la extensión con punto, o `auto` para volver a la detección automática.\n\n```json\n{\n  \".\": \".c\",\n  \"02-Variables/ejercicio_python\": \".py\"\n}\n```"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "icon": "node tools/make-icon.js",
+    "test": "npm run compile && node test/file-names.test.js && node test/project-language.test.js && node test/folder-language.test.js && node test/open-path.test.js && node test/create-path.test.js"
+  },
+  "devDependencies": {
+    "@types/node": "20.x",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.3"
+  }
+}
