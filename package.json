@@ -3,7 +3,7 @@
   "displayName": "%displayName%",
   "description": "%description%",
   "version": "1.0.2",
-  "publisher": "jorgetoledomoreno",
+  "publisher": "jotolmor",
   "license": "MIT",
   "icon": "images/icon.png",
   "l10n": "./l10n",
@@ -84,5 +84,9 @@
     "@types/node": "20.x",
     "@types/vscode": "^1.85.0",
     "typescript": "^5.3.3"
+  },
+  "author": {
+    "name": "jotolmor",
+    "url": "https://github.com/jotolmor"
   }
 }

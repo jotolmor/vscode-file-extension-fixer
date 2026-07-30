@@ -10,7 +10,7 @@ Este proyecto sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) 
 
 ## [1.0.0] - 2026-07-29
 
-Primera versión de esta reescritura, publicada como actualización de `auto-extension-files` 0.0.4. El identificador `jorgetoledomoreno.auto-extension-files` se conserva para no partir la ficha del Marketplace en dos; el nombre visible pasa a ser File Extension Fixer.
+Primera versión de esta reescritura, publicada como actualización de `auto-extension-files` 0.0.4. El identificador `jotolmor.auto-extension-files` se conserva para no partir la ficha del Marketplace en dos; el nombre visible pasa a ser File Extension Fixer.
 
 ### Añadido
 
